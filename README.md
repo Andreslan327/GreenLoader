@@ -37,7 +37,7 @@ Todo el crédito y reconocimiento va para sus desarrolladores.
 
 ## 📦 Instalación
 
-1. Descarga `Greenloader.zip` desde el [Releases](https://github.com/Andreslan327/GreenLoader/releases).
+1. Descarga `Greenloader.zip` desde [Releases](https://github.com/Andreslan327/GreenLoader/releases).
 2. Ejecuta `GreenLoader.bat`.
 
 ---
