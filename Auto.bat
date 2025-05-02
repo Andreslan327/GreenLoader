@@ -8,7 +8,7 @@ if not exist "Video" mkdir "Video"
 
 cls
 echo ***************************************
-echo *           Video Downloader          *
+echo *            Downloader               *
 echo ***************************************
 
 set /p video_url= ^< Pega el link del video: ^>
