@@ -30,8 +30,8 @@ Todo el crédito y reconocimiento va para sus desarrolladores.
 ## 🛠️ Requisitos
 
 - Windows 7/10/11 (o Wine en Linux)
-- `yt-dlp.exe` (descargable desde el repo oficial)
-- Opcional: `ffmpeg` para mejor calidad de audio
+- `yt-dlp.exe` (viene incluido en las releases)
+- Necesario: `ffmpeg` para el manejo de la herramienta.
 
 ---
 
