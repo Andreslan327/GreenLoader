@@ -8,10 +8,11 @@ if not exist "Video" mkdir "Video"
 
 cls
 echo ***************************************
-echo *            Downloader               *
+echo *           Video Downloader          *
 echo ***************************************
 
 set /p video_url= ^< Pega el link del video: ^>
+set video_url="%video_url%"
 
 cls
 echo.
@@ -41,3 +42,4 @@ if "%format%"=="2" (
 echo.
 pause
 endlocal
+

@@ -1,6 +1,6 @@
 # GreenLoader
 
-**GreenLoader** es una interfaz sencilla y sin publicidad para descargar videos o audios desde diferentes plataformas, usando la poderosa herramienta `yt-dlp`. Fue creada para facilitar el uso en sistemas Windows, con una interfaz batch minimalista y rápida.
+**GreenLoader** es una interfaz sencilla y sin publicidad para descargar videos o audios desde YouTube, usando la poderosa herramienta `yt-dlp`. Fue creada para facilitar el uso en sistemas Windows, con una interfaz batch minimalista y rápida.
 
 ---
 
@@ -37,8 +37,9 @@ Todo el crédito y reconocimiento va para sus desarrolladores.
 
 ## 📦 Instalación
 
-1. Descarga `Greenloader.zip` desde [Releases](https://github.com/Andreslan327/GreenLoader/releases).
-2. Ejecuta `GreenLoader.bat`.
+1. Descarga `yt-dlp.exe` desde el [repositorio oficial](https://github.com/yt-dlp/yt-dlp/releases/latest).
+2. Coloca `yt-dlp.exe` en la misma carpeta del archivo `GreenLoader.bat`.
+3. Ejecuta `GreenLoader.bat`.
 
 ---
 
