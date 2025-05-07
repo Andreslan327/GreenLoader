@@ -31,7 +31,7 @@ Todo el crédito y reconocimiento va para sus desarrolladores.
 
 - Windows 7/10/11 (o Wine en Linux)
 - `yt-dlp.exe` (viene incluido en las releases)
-- Necesario: `ffmpeg` para el manejo de la herramienta.
+- Necesario: `ffmpeg` en variable de entorno de Windows en caso de que vayas a usar el Lite, sino, opta por el Full que no necesita de configuración de nada.
 
 ---
 
