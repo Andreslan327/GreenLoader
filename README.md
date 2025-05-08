@@ -12,7 +12,7 @@
 - Conversión automática de **audio a MP3**.
 - Carpetas separadas para organizar tus archivos (`/Audio` y `/Video`).
 - 100% sin publicidad ni ventanas molestas.
-- Interfaz por consola, ligera y sin dependencias innecesarias.
+- Interfaz HTML basica, ligera y sin dependencias innecesarias.
 
 ---
 
