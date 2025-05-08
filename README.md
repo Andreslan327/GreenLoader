@@ -1,6 +1,6 @@
 # GreenLoader
 
-[GreenLoader](https://github.com/Andreslan327/GreenLoader/blob/main/GL.png?raw=true)
+[GreenLoader](GL.png)
 
 **GreenLoader** es una interfaz sencilla y sin publicidad para descargar videos o audios desde YouTube, usando la poderosa herramienta `yt-dlp`. Fue creada para facilitar el uso en sistemas Windows, con una interfaz html basica minimalista y rápida, facil para un uso directo.
 
