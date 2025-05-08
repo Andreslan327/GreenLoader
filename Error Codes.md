@@ -1,4 +1,4 @@
-# Aqui encontrarás todos los codigos de error que he implementado para que encuentres la solución a tu problema más facilmente
+# Aqui encontrarás todos los codigos de error que he implementado para que encuentres la solución a tu problema más fácilmente
 
 ## Codigo de Error:
 
