@@ -33,15 +33,15 @@ Todo el crédito y reconocimiento va para sus desarrolladores.
 
 - Windows 7/10/11 (o Wine en Linux)
 - `yt-dlp.exe` (viene incluido en las releases)
-- Necesario: `ffmpeg` en variable de entorno de Windows en caso de que vayas a usar el Lite, sino, opta por el Full que no necesita de configuración de nada.
+- Ya no es necesario FFmpeg, ya viene incluido desde el lanzamiento con interfaz grafica, ahora si es solo descragar y usar!
 
 ---
 
 ## 📦 Instalación
 
-1. Descarga `yt-dlp.exe` desde el [repositorio oficial](https://github.com/yt-dlp/yt-dlp/releases/latest).
-2. Coloca `yt-dlp.exe` en la misma carpeta del archivo `GreenLoader.bat`.
-3. Ejecuta `GreenLoader.bat`.
+1. Descarga la ultima versión disponible
+2. Ejecuta `Auto.bat` 
+3. Disfrutar
 
 ---
 
