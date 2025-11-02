@@ -1,0 +1,234 @@
+/* === Fondo general === */
+body {
+  background: linear-gradient(135deg, #0f0f0f, #1a1f1c);
+  color: #00ff99;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* === Contenedor principal === */
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 440px;
+  margin: auto;
+  background: #121212;
+  border-radius: 20px;
+  box-shadow: 0 10px 50px rgba(0, 255, 128, 0.15);
+  padding: 40px 24px 30px 24px;
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* === Título === */
+h2 {
+  margin-bottom: 24px;
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #00ff99;
+  text-shadow: 0 0 6px rgba(0, 255, 128, 0.3);
+}
+
+.version {
+  font-size: 0.6em;
+  color: #ccc;
+  margin-left: 6px;
+}
+
+/* === Etiquetas y campos === */
+label {
+  text-align: center;
+  width: 100%;
+  display: block;
+  color: #0f0;
+  margin-bottom: 7px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 100px;
+  max-height: 180px;
+  resize: vertical;
+  background: #1c1f22;
+  color: #e0ffe0;
+  border: 1.5px solid #2b2f34;
+  border-radius: 12px;
+  font-size: 1em;
+  padding: 14px;
+  margin-bottom: 18px;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease;
+}
+
+textarea:focus {
+  box-shadow: 0 0 10px rgba(0, 255, 128, 0.35);
+  border-color: #00ff80;
+}
+
+/* === Botones de tipo === */
+.toggle-type {
+  display: flex;
+  width: 100%;
+  gap: 14px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.toggle-type button {
+  flex: 1;
+  background: linear-gradient(145deg, #2b2f34, #1f2428);
+  color: #0f0;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.15em;
+  padding: 10px 0;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.toggle-type button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 255, 128, 0.2);
+}
+
+.toggle-type button.active {
+  background: linear-gradient(145deg, #00cc66, #00ff99);
+  color: #181c1f;
+  border-color: #28ff99;
+}
+
+/* === Selector de calidad === */
+.quality-container {
+  width: 100%;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quality-container select {
+  background: #17201b;
+  color: #00ff00;
+  border: 1.5px solid #00cc66;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 1em;
+  width: 85%;
+  max-width: 270px;
+  text-align: center;
+  transition: box-shadow 0.2s ease;
+}
+
+select:focus {
+  box-shadow: 0 0 10px rgba(0, 255, 128, 0.3);
+}
+
+/* === Botones principales === */
+.buttons {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+button {
+  background: linear-gradient(145deg, #00cc66, #00ff99);
+  color: #181c1f;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 14px 0;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,255,128,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+button:hover {
+  background: linear-gradient(145deg, #00ff80, #00ffaa);
+  color: #000; /* ← Añade esta línea */
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 20px rgba(0, 255, 128, 0.25);
+}
+
+.pulse {
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(0,255,128,0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(0,255,128,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,255,128,0); }
+}
+
+/* === Consola de salida === */
+#output {
+  background: #101613;
+  color: #04e274;
+  padding: 18px 12px;
+  min-height: 52px;
+  border-radius: 12px;
+  font-family: 'Consolas', monospace;
+  font-size: 1em;
+  text-align: center;
+  margin-top: 18px;
+  margin-bottom: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  white-space: pre-line;
+  transition: background 0.18s ease;
+}
+
+/* === Botones de enlaces === */
+.link-buttons {
+  margin-top: 14px;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.link-btn {
+  background: linear-gradient(145deg, #007acc, #00aaff);
+  color: #fff;
+  padding: 13px 22px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1em;
+  box-shadow: 0 4px 18px rgba(0, 122, 204, 0.19);
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.link-btn:hover {
+  background: linear-gradient(145deg, #00aaff, #00ccff);
+  box-shadow: 0 6px 20px rgba(0, 122, 204, 0.25);
+  transform: translateY(-2px) scale(1.04);
+}

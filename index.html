@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>GreenLoader V5.0</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="main-content centered">
+    <h2>GreenLoader <span class="version">v5.0</span></h2>
+
+    <label for="urlInput">Pega el enlace que gustes:</label>
+    <textarea id="urlInput" placeholder="https://youtube.com/..." autocomplete="off"></textarea>
+
+    <div class="toggle-type">
+      <button id="audioTypeBtn" class="active">🎵 Audio</button>
+      <button id="videoTypeBtn">🎥 Video</button>
+    </div>
+
+    <div class="quality-container">
+      <label for="qualitySelect">Calidad:</label>
+      <select id="qualitySelect"></select>
+    </div>
+
+    <div class="buttons">
+      <button id="downloadBtn" class="pulse">⬇️ Iniciar Descarga</button>
+      <button id="openFolderBtn" class="link-btn">📂 Abrir Carpeta</button>
+    </div>
+
+    <pre id="output"></pre>
+
+    <div class="link-buttons">
+      <button id="starGithubBtn" class="link-btn">⭐ GitHub</button>
+      <button id="reportIssueBtn" class="link-btn">🐞 Reportar Error</button>
+    </div>
+  </div>
+
+  <script>
+    const audioBtn = document.getElementById('audioTypeBtn');
+    const videoBtn = document.getElementById('videoTypeBtn');
+    const qualitySelect = document.getElementById('qualitySelect');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const output = document.getElementById('output');
+    const openFolderBtn = document.getElementById('openFolderBtn');
+    const githubBtn = document.getElementById('starGithubBtn');
+    const reportBtn = document.getElementById('reportIssueBtn');
+
+    let currentType = 'audio';
+
+    const qualities = {
+      audio: [
+        { value: 'audio_best', text: 'Audio alta calidad' },
+        { value: 'audio_low', text: 'Audio baja calidad' }
+      ],
+      video: [
+        { value: '1080', text: '1080p (Alta)' },
+        { value: '720', text: '720p (Media)' },
+        { value: '480', text: '480p (Baja)' },
+        { value: 'best', text: 'Mejor calidad disponible' }
+      ]
+    };
+
+    function updateQualityOptions() {
+      qualitySelect.innerHTML = '';
+      qualities[currentType].forEach(opt => {
+        const option = document.createElement('option');
+        option.value = opt.value;
+        option.textContent = opt.text;
+        qualitySelect.appendChild(option);
+      });
+    }
+
+    audioBtn.onclick = () => {
+      currentType = 'audio';
+      audioBtn.classList.add('active');
+      videoBtn.classList.remove('active');
+      updateQualityOptions();
+    };
+
+    videoBtn.onclick = () => {
+      currentType = 'video';
+      videoBtn.classList.add('active');
+      audioBtn.classList.remove('active');
+      updateQualityOptions();
+    };
+
+    updateQualityOptions();
+
+    downloadBtn.onclick = () => {
+      output.textContent = '⬇️ Su descarga comenzó, espere.\n';
+
+      const urls = document.getElementById('urlInput').value
+        .split('\n')
+        .map(u => u.trim())
+        .filter(u => u.length > 0);
+
+      const quality = qualitySelect.value;
+
+      for (const url of urls) {
+        window.electronAPI.downloadMedia({ type: currentType, url, quality });
+      }
+    };
+
+    openFolderBtn.onclick = () => {
+      window.electronAPI.openDownloadFolder();
+    };
+
+    githubBtn.onclick = () => {
+      window.electronAPI.openExternalLink("https://github.com/Andreslan327/GreenLoader");
+    };
+
+    reportBtn.onclick = () => {
+      window.electronAPI.openExternalLink("https://github.com/Andreslan327/GreenLoader/discussions/new?category=reportes");
+    };
+
+    window.electronAPI.onDownloadSuccess((_event, data) => {
+      output.textContent = `✅ Su descarga finalizó, abra la carpeta para ver los archivos.\n`;
+    });
+
+    window.electronAPI.onDownloadError((_event, err) => {
+      output.textContent += `❌ ${err.error}\n`;
+    });
+  </script>
+</body>
+</html>

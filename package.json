@@ -1,0 +1,12 @@
+{
+  "name": "greenloader_interfaz_grafica",
+  "version": "version3000carajo",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^36.1.0",
+    "electron-packager": "^17.1.2"
+  }
+}
