@@ -1,125 +1,98 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>GreenLoader V5.0</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="main-content centered">
-    <h2>GreenLoader <span class="version">v5.0</span></h2>
+    <div class="main-wrapper">
+        <div class="glass-container">
+            <header class="reveal">
+                <h1>GreenLoader <span class="accent">V7.0</span></h1>
+                <p class="tagline">High Quality Media Downloader</p>
+            </header>
 
-    <label for="urlInput">Pega el enlace que gustes:</label>
-    <textarea id="urlInput" placeholder="https://youtube.com/..." autocomplete="off"></textarea>
+            <div class="input-group reveal" style="transition-delay: 0.1s;">
+                <label>LISTA DE ENLACES</label>
+                <textarea id="urlInput" placeholder="Pega los enlaces aquí..."></textarea>
+            </div>
 
-    <div class="toggle-type">
-      <button id="audioTypeBtn" class="active">🎵 Audio</button>
-      <button id="videoTypeBtn">🎥 Video</button>
+            <div class="options-grid">
+                <div class="inner-box reveal" style="transition-delay: 0.2s;">
+                    <label>FORMATO</label>
+                    <div class="selector-tabs">
+                        <div id="videoBtn" class="tab active" onclick="setMode('video')">Video</div>
+                        <div id="audioBtn" class="tab" onclick="setMode('audio')">Audio</div>
+                    </div>
+                </div>
+
+                <div class="inner-box reveal" style="transition-delay: 0.3s;">
+                    <label>CALIDAD</label>
+                    <select id="qualitySelect"></select>
+                </div>
+            </div>
+
+            <div class="action-area reveal" style="transition-delay: 0.4s;">
+                <button id="downloadBtn" onclick="startDownload()">INICIAR PROCESO</button>
+                <div class="footer-btns">
+                    <button class="secondary-btn" onclick="pywebview.api.open_folder()">ABRIR CARPETA</button>
+                    <button class="secondary-btn" onclick="clearAll()">LIMPIAR</button>
+                </div>
+            </div>
+
+            <div id="output" class="reveal" style="transition-delay: 0.5s;">SISTEMA LISTO</div>
+        </div>
     </div>
 
-    <div class="quality-container">
-      <label for="qualitySelect">Calidad:</label>
-      <select id="qualitySelect"></select>
-    </div>
+    <script>
+        let currentType = 'video';
+        const qualities = {
+            video: [{v:'1080', t:'1080p Full HD'}, {v:'720', t:'720p HD'}, {v:'best', t:'Mejor disponible'}],
+            audio: [{v:'audio_best', t:'MP3 320kbps'}, {v:'audio_low', t:'MP3 128kbps'}]
+        };
 
-    <div class="buttons">
-      <button id="downloadBtn" class="pulse">⬇️ Iniciar Descarga</button>
-      <button id="openFolderBtn" class="link-btn">📂 Abrir Carpeta</button>
-    </div>
+        function setMode(type) {
+            currentType = type;
+            document.getElementById('audioBtn').classList.toggle('active', type === 'audio');
+            document.getElementById('videoBtn').classList.toggle('active', type === 'video');
+            updateOptions();
+        }
 
-    <pre id="output"></pre>
+        function updateOptions() {
+            const select = document.getElementById('qualitySelect');
+            select.innerHTML = '';
+            qualities[currentType].forEach(q => {
+                const opt = document.createElement('option');
+                opt.value = q.v; opt.innerText = q.t;
+                select.appendChild(opt);
+            });
+        }
 
-    <div class="link-buttons">
-      <button id="starGithubBtn" class="link-btn">⭐ GitHub</button>
-      <button id="reportIssueBtn" class="link-btn">🐞 Reportar Error</button>
-    </div>
-  </div>
+        async function startDownload() {
+            const urls = document.getElementById('urlInput').value.trim();
+            const quality = document.getElementById('qualitySelect').value;
+            const out = document.getElementById('output');
+            const btn = document.getElementById('downloadBtn');
 
-  <script>
-    const audioBtn = document.getElementById('audioTypeBtn');
-    const videoBtn = document.getElementById('videoTypeBtn');
-    const qualitySelect = document.getElementById('qualitySelect');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const output = document.getElementById('output');
-    const openFolderBtn = document.getElementById('openFolderBtn');
-    const githubBtn = document.getElementById('starGithubBtn');
-    const reportBtn = document.getElementById('reportIssueBtn');
+            if (!urls) { out.innerText = "Inserte enlaces"; return; }
 
-    let currentType = 'audio';
+            btn.disabled = true;
+            btn.innerText = "PROCESANDO...";
+            out.innerText = "Descargando medios...";
 
-    const qualities = {
-      audio: [
-        { value: 'audio_best', text: 'Audio alta calidad' },
-        { value: 'audio_low', text: 'Audio baja calidad' }
-      ],
-      video: [
-        { value: '1080', text: '1080p (Alta)' },
-        { value: '720', text: '720p (Media)' },
-        { value: '480', text: '480p (Baja)' },
-        { value: 'best', text: 'Mejor calidad disponible' }
-      ]
-    };
+            const res = await pywebview.api.descargar(urls, currentType, quality);
+            
+            out.innerText = res;
+            btn.disabled = false;
+            btn.innerText = "INICIAR PROCESO";
+        }
 
-    function updateQualityOptions() {
-      qualitySelect.innerHTML = '';
-      qualities[currentType].forEach(opt => {
-        const option = document.createElement('option');
-        option.value = opt.value;
-        option.textContent = opt.text;
-        qualitySelect.appendChild(option);
-      });
-    }
+        function clearAll() {
+            document.getElementById('urlInput').value = "";
+            document.getElementById('output').innerText = "Sistema listo";
+        }
 
-    audioBtn.onclick = () => {
-      currentType = 'audio';
-      audioBtn.classList.add('active');
-      videoBtn.classList.remove('active');
-      updateQualityOptions();
-    };
-
-    videoBtn.onclick = () => {
-      currentType = 'video';
-      videoBtn.classList.add('active');
-      audioBtn.classList.remove('active');
-      updateQualityOptions();
-    };
-
-    updateQualityOptions();
-
-    downloadBtn.onclick = () => {
-      output.textContent = '⬇️ Su descarga comenzó, espere.\n';
-
-      const urls = document.getElementById('urlInput').value
-        .split('\n')
-        .map(u => u.trim())
-        .filter(u => u.length > 0);
-
-      const quality = qualitySelect.value;
-
-      for (const url of urls) {
-        window.electronAPI.downloadMedia({ type: currentType, url, quality });
-      }
-    };
-
-    openFolderBtn.onclick = () => {
-      window.electronAPI.openDownloadFolder();
-    };
-
-    githubBtn.onclick = () => {
-      window.electronAPI.openExternalLink("https://github.com/Andreslan327/GreenLoader");
-    };
-
-    reportBtn.onclick = () => {
-      window.electronAPI.openExternalLink("https://github.com/Andreslan327/GreenLoader/discussions/new?category=reportes");
-    };
-
-    window.electronAPI.onDownloadSuccess((_event, data) => {
-      output.textContent = `✅ Su descarga finalizó, abra la carpeta para ver los archivos.\n`;
-    });
-
-    window.electronAPI.onDownloadError((_event, err) => {
-      output.textContent += `❌ ${err.error}\n`;
-    });
-  </script>
+        updateOptions();
+    </script>
 </body>
 </html>
