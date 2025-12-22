@@ -2,53 +2,77 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenLoader V7.0</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="main-wrapper">
-        <div class="glass-container">
-            <header class="reveal">
-                <h1>GreenLoader <span class="accent">V7.0</span></h1>
-                <p class="tagline">High Quality Media Downloader</p>
-            </header>
+    <div class="md-container">
+        <header class="reveal">
+            <div class="logo-icon">G</div>
+            <div class="header-text">
+                <h1>GreenLoader</h1>
+                <p>Versión V7.0 | by Andrés Lan</p>
+            </div>
+        </header>
 
-            <div class="input-group reveal" style="transition-delay: 0.1s;">
-                <label>LISTA DE ENLACES</label>
-                <textarea id="urlInput" placeholder="Pega los enlaces aquí..."></textarea>
+        <main>
+            <div class="md-card reveal-delay-1">
+                <label class="md-label">ENLACE</label>
+                <textarea id="urlInput" class="md-input" placeholder="Pega aquí el link..."></textarea>
             </div>
 
-            <div class="options-grid">
-                <div class="inner-box reveal" style="transition-delay: 0.2s;">
-                    <label>FORMATO</label>
-                    <div class="selector-tabs">
-                        <div id="videoBtn" class="tab active" onclick="setMode('video')">Video</div>
-                        <div id="audioBtn" class="tab" onclick="setMode('audio')">Audio</div>
+            <div class="md-grid">
+                <div class="md-card reveal-delay-2">
+                    <label class="md-label">FORMATO</label>
+                    <div class="md-chip-group">
+                        <div id="videoBtn" class="md-chip active" onclick="setMode('video')">Video</div>
+                        <div id="audioBtn" class="md-chip" onclick="setMode('audio')">Audio</div>
                     </div>
                 </div>
 
-                <div class="inner-box reveal" style="transition-delay: 0.3s;">
-                    <label>CALIDAD</label>
-                    <select id="qualitySelect"></select>
+                <div class="md-card reveal-delay-3">
+                    <label class="md-label">CALIDAD FINAL</label>
+                    <div class="md-select-wrapper">
+                        <select id="qualitySelect" class="md-select"></select>
+                    </div>
                 </div>
             </div>
 
-            <div class="action-area reveal" style="transition-delay: 0.4s;">
-                <button id="downloadBtn" onclick="startDownload()">INICIAR PROCESO</button>
-                <div class="footer-btns">
-                    <button class="secondary-btn" onclick="pywebview.api.open_folder()">ABRIR CARPETA</button>
-                    <button class="secondary-btn" onclick="clearAll()">LIMPIAR</button>
+            <div class="md-actions reveal-delay-4">
+                <button id="downloadBtn" class="md-btn-primary" onclick="startDownload()">INICIAR PROCESO</button>
+                <div class="md-row">
+                    <button class="md-btn-tonal" onclick="pywebview.api.open_folder()">ABRIR DIRECTORIO</button>
+                    <button class="md-btn-text" onclick="clearAll()">LIMPIAR</button>
                 </div>
             </div>
+        </main>
 
-            <div id="output" class="reveal" style="transition-delay: 0.5s;">SISTEMA LISTO</div>
-        </div>
+        <footer id="output" class="reveal-delay-5">SISTEMA LISTO</footer>
+    </div>
+
+    <div class="external-links reveal-delay-5">
+        <a href="https://github.com/Andreslan327/GreenLoader" target="_blank" class="ext-btn">
+            <span class="dot"></span> GitHub
+        </a>
+        <a href="https://github.com/Andreslan327/GreenLoader/discussions/new?category=reportes" target="_blank" class="ext-btn">
+            <span class="dot"></span> Reportar
+        </a>
     </div>
 
     <script>
         let currentType = 'video';
         const qualities = {
-            video: [{v:'1080', t:'1080p Full HD'}, {v:'720', t:'720p HD'}, {v:'best', t:'Mejor disponible'}],
-            audio: [{v:'audio_best', t:'MP3 320kbps'}, {v:'audio_low', t:'MP3 128kbps'}]
+            video: [
+                {v:'1080', t:'1080p Full HD'}, 
+                {v:'720', t:'720p HD'}, 
+                {v:'best', t:'Mejor disponible'}
+            ],
+            audio: [
+                {v:'audio_best', t:'MP3 320kbps'}, 
+                {v:'audio_low', t:'MP3 128kbps'}
+            ]
         };
 
         function setMode(type) {
@@ -70,17 +94,21 @@
 
         async function startDownload() {
             const urls = document.getElementById('urlInput').value.trim();
-            const quality = document.getElementById('qualitySelect').value;
             const out = document.getElementById('output');
             const btn = document.getElementById('downloadBtn');
-
-            if (!urls) { out.innerText = "Inserte enlaces"; return; }
-
+            
+            if (!urls) { 
+                out.innerText = "ERROR: INSERTE ENLACES"; 
+                out.style.color = "#ff4444";
+                return; 
+            }
+            
             btn.disabled = true;
             btn.innerText = "PROCESANDO...";
-            out.innerText = "Descargando medios...";
+            out.style.color = "#00ff88";
+            out.innerText = "ESTABLECIENDO CONEXIÓN...";
 
-            const res = await pywebview.api.descargar(urls, currentType, quality);
+            const res = await pywebview.api.descargar(urls, currentType, document.getElementById('qualitySelect').value);
             
             out.innerText = res;
             btn.disabled = false;
@@ -89,7 +117,11 @@
 
         function clearAll() {
             document.getElementById('urlInput').value = "";
-            document.getElementById('output').innerText = "Sistema listo";
+            document.getElementById('output').innerText = "SISTEMA LIMPIO";
+            document.getElementById('output').style.color = "";
+            const btn = document.getElementById('downloadBtn');
+            btn.disabled = false;
+            btn.innerText = "INICIAR PROCESO";
         }
 
         updateOptions();
